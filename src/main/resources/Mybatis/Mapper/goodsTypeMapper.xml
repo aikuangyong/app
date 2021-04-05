@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.goodsTypeMapper">
+    <select id="getAll" resultType="com.example.demo.pojo.GoodsType">
+        select *
+        from goodstype;
+    </select>
+
+    <select id="getOne" parameterType="com.example.demo.pojo.GoodsType" resultType="com.example.demo.pojo.GoodsType">
+        select *
+        from goodstype
+        where tid = #{tid}
+    </select>
+
+    <insert id="addGoodsType" parameterType="com.example.demo.pojo.GoodsType">
+        insert into goodstype (tid, typeName, createtime,
+                               orderseq, bannerimg, typeimg)
+        values (#{tid}, #{typeName}, #{createtime}, #{orderseq}, #{bannerimg}, #{typeimg})
+    </insert>
+
+    <update id="updateGoodsType" parameterType="com.example.demo.pojo.GoodsType">
+        update goodstype
+        set typeName=#{typeName},
+            createtime=#{createtime},
+            orderseq=#{orderseq},
+            bannerimg=#{bannerimg},
+            typeimg=#{typeimg}
+        where tid = #{tid}
+    </update>
+
+    <delete id="deleteGoodsType" parameterType="int">
+        delete
+        from goodstype
+        where tid = #{tid}
+    </delete>
+</mapper>
