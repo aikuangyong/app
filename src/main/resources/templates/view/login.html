@@ -8,8 +8,8 @@
 <h1>Login</h1>
 <p th:text="${msg}" style="color: red"></p>
 <form th:action="@{/Login}">
-    用户名 <input type="text" name="username">
-    密码 <input type="text" name="password">
+    用户名 <input type="text" name="username" required>
+    密码 <input type="text" name="password" required>
     <input type="submit">
 </form>
 </body>
