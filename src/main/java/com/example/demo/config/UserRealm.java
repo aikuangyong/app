@@ -22,11 +22,12 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+        String s = (String) usernamePasswordToken.getPrincipal();
         User user = userService.getUserByName(usernamePasswordToken.getUsername());
         if (user == null) {
             return null;
         }
-        return new SimpleAuthenticationInfo("", user.getPassword(), "");
+        return new SimpleAuthenticationInfo(s, user.getPassword(), this.getName());
 
     }
 }

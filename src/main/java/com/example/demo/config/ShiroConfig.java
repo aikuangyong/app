@@ -1,8 +1,10 @@
 package com.example.demo.config;
 
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cglib.core.HashCodeCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +14,7 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Bean(name="shiroFilterFactoryBean")
+    @Bean(name = "shiroFilterFactoryBean")
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
@@ -33,6 +35,10 @@ public class ShiroConfig {
 
     @Bean
     public UserRealm userRealm() {
-        return new UserRealm();
+        UserRealm realm = new UserRealm();
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        realm.setCredentialsMatcher(hashedCredentialsMatcher);
+        return realm;
     }
 }

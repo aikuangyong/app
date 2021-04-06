@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.mapper.GoodsTypeMapper;
 import com.example.demo.pojo.GoodsType;
 import com.example.demo.service.GoodsTypeService;
 import com.example.demo.service.UserService;

@@ -5,8 +5,13 @@
     <title>index</title>
 </head>
 <body>
-首页
+<h1>首页</h1>
+<p th:text="${msg}" style="color: red"></p>
 <hr>
-<h1><a th:href="@{/index/add}">add</a> | <a th:href="@{/index/update}">update</a></h1>
+<h1><a th:href="@{/index/add}">添加</a> | <a th:href="@{/index/update}">更新</a>
+</h1>
+
+<h1><a th:href="@{/toSignIn}">注册</a> | <a th:href="@{/logOut}">登出</a></h1>
+
 </body>
 </html>
