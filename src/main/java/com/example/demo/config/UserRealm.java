@@ -1,6 +1,5 @@
 package com.example.demo.config;
 
-import com.example.demo.mapper.UserMapper;
 import com.example.demo.pojo.User;
 import com.example.demo.service.UserService;
 import org.apache.shiro.authc.*;
