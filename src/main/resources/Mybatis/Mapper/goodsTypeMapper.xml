@@ -15,9 +15,8 @@
     </select>
 
     <insert id="addGoodsType" parameterType="com.example.demo.pojo.GoodsType">
-        insert into goodstype (tid, typeName, createtime,
-                               orderseq, bannerimg, typeimg)
-        values (#{tid}, #{typeName}, #{createtime}, #{orderseq}, #{bannerimg}, #{typeimg})
+        insert into goodstype (typeName, createtime, orderseq, bannerimg, typeimg)
+        values (#{typeName}, #{createtime}, #{orderseq}, #{bannerimg}, #{typeimg})
     </insert>
 
     <update id="updateGoodsType" parameterType="com.example.demo.pojo.GoodsType">
@@ -30,9 +29,9 @@
         where tid = #{tid}
     </update>
 
-    <delete id="deleteGoodsType" parameterType="int">
-        delete
-        from goodstype
-        where tid = #{tid}
-    </delete>
+    <!--    <delete id="deleteGoodsType" parameterType="int">-->
+    <!--        delete-->
+    <!--        from goodstype-->
+    <!--        where tid = #{tid}-->
+    <!--    </delete>-->
 </mapper>
