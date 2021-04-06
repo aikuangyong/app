@@ -8,6 +8,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,7 +67,7 @@ public class LoginController {
             model.addAttribute("msg", "已登出");
             return "view/index";
         } else {
-            model.addAttribute("msg", "登出失败");
+            model.addAttribute("msg", "登出失败,请先登录");
             return "view/login";
         }
     }
@@ -79,11 +80,11 @@ public class LoginController {
     @RequestMapping("/signIn")
     public String signIn(String username, String password, String phone, String email, Model model) {
         User user = userService.getUserByName(username);
-        if (user != null){
+        if (user != null) {
             model.addAttribute("msg", "用户已存在");
             return "view/signin";
-        }else{
-            String newPassword = new Md5Hash(password).toHex();
+        } else {
+            String newPassword = new Md5Hash(password, ByteSource.Util.bytes(username)).toHex();
             userService.addUser(new User(0, username, newPassword, phone, email));
             return "view/index";
         }

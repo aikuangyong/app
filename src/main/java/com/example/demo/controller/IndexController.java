@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.pojo.GoodsType;
 import com.example.demo.service.GoodsTypeService;
-import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,6 @@ public class IndexController {
     @Autowired
     private GoodsTypeService goodsTypeService;
 
-    @Autowired
-    private UserService userService;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
