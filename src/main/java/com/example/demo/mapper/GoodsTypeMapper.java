@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface goodsTypeMapper {
+public interface GoodsTypeMapper {
     List<GoodsType> getAll();
     GoodsType getOne(int tid);
     int addGoodsType(GoodsType goodsType);

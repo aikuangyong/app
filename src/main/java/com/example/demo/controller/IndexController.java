@@ -1,16 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.mapper.goodsTypeMapper;
+import com.example.demo.mapper.GoodsTypeMapper;
 import com.example.demo.pojo.GoodsType;
-import com.example.demo.pojo.User;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
+import com.example.demo.service.GoodsTypeService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -22,55 +17,47 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
-    private goodsTypeMapper goodsTypeMapper;
+    private GoodsTypeService goodsTypeService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
     public List<GoodsType> getAll() {
-        return goodsTypeMapper.getAll();
+        return goodsTypeService.getAll();
     }
 
     @RequestMapping(value = "/getOne", method = RequestMethod.GET)
     @ResponseBody
-    public GoodsType getOne(@RequestParam("tid") int tid) {
-        return goodsTypeMapper.getOne(tid);
+    public GoodsType getOne(int tid) {
+        System.out.println(tid);
+        return goodsTypeService.getOne(tid);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.PUT)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addGoodsType(
-            @RequestParam(value = "tid") int tid,
-            @RequestParam(value = "typeName") String typeName,
-            @RequestParam(value = "createtime", required = false) Date createtime,
-            @RequestParam(value = "orderseq", defaultValue = "0") int orderseq,
-            @RequestParam(value = "bannerimg", required = false) String bannerimg,
-            @RequestParam(value = "typeimg", required = false) String typeimg) {
-        goodsTypeMapper.addGoodsType(new GoodsType(tid, typeName, createtime, orderseq, bannerimg, typeimg));
-        return "添加成功";
+    public String addGoodsType(int tid, String typeName, Date createtime,
+                               int orderseq, String bannerimg, String typeimg) {
+        int ret = goodsTypeService.addGoodsType(tid, typeName, createtime, orderseq, bannerimg, typeimg);
+        if (ret > 0) {
+            return "添加成功";
+        } else {
+            return "添加失败";
+        }
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public String update(
-            @RequestParam(value = "tid", required = false) int tid,
-            @RequestParam(value = "typeName") String typeName,
-            @RequestParam(value = "createtime", required = false) Date createtime,
-            @RequestParam(value = "orderseq", required = false) int orderseq,
-            @RequestParam(value = "bannerimg", required = false) String bannerimg,
-            @RequestParam(value = "typeimg", required = false) String typeimg
+            int tid, String typeName, Date createtime,
+            int orderseq, String bannerimg, String typeimg
     ) {
-        GoodsType goodsType = new GoodsType(tid, typeName, createtime, orderseq, bannerimg, typeimg);
-        goodsTypeMapper.updateGoodsType(goodsType);
-        return "更新成功";
+        int res = goodsTypeService.updateGoodsType(tid, typeName, createtime, orderseq, bannerimg, typeimg);
+        if (res > 0) {
+            return "更新成功";
+        } else {
+            return "更新失败";
+        }
     }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    @ResponseBody
-    public String delete(@RequestParam("tid") int tid) {
-        goodsTypeMapper.deleteGoodsType(tid);
-        return "删除成功";
-    }
-
-
-
 }
