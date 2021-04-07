@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.pojo.User;
 import com.example.demo.service.UserService;
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -12,10 +13,12 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
+@Api(tags = "登录注册控制类")
 @Controller
 public class LoginController {
 
@@ -23,12 +26,12 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/toLogin")
+    @GetMapping("/toLogin")
     public String toLogin() {
-        return "view/login";
+        return "redirect:";
     }
 
-    @RequestMapping(value = "/Login", method = RequestMethod.POST)
+    @PostMapping(value = "/Login")
     public String login(String username, String password, Model model) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
@@ -44,22 +47,22 @@ public class LoginController {
         }
     }
 
-    @RequestMapping("/index")
+    @GetMapping("/index")
     public String index() {
         return "view/index";
     }
 
-    @RequestMapping("/index/add")
+    @GetMapping("/index/add")
     public String add() {
         return "view/add";
     }
 
-    @RequestMapping("/index/update")
+    @GetMapping("/index/update")
     public String update() {
         return "view/update";
     }
 
-    @RequestMapping("/logOut")
+    @GetMapping("/logOut")
     public String logOut(Model model) {
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
@@ -72,12 +75,12 @@ public class LoginController {
         }
     }
 
-    @RequestMapping("/toSignIn")
+    @GetMapping("/toSignIn")
     public String toSignIn() {
         return "view/signin";
     }
 
-    @RequestMapping("/signIn")
+    @PostMapping("/signIn")
     public String signIn(String username, String password, String phone, String email, Model model) {
         User user = userService.getUserByName(username);
         if (user != null) {

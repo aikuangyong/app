@@ -13,7 +13,6 @@ import java.util.Date;
 public class GoodsType {
     private int tid;
     private String typeName;
-    private Date createtime;
     private int orderseq;
     private String bannerimg;
     private String typeimg;

@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface GoodsTypeMapper {
-    List<GoodsType> getAll();
+    List<GoodsType> getAllType();
     GoodsType getOne(int tid);
     int addGoodsType(GoodsType goodsType);
     int updateGoodsType(GoodsType goodsType);

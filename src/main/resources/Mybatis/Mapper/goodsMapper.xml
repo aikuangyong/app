@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.GoodsMapper">
+    <select id="getAllGoods" resultMap="getAllGoodsMap">
+        select * from goods
+    </select>
+    <resultMap id="getAllGoodsMap" type="com.example.demo.pojo.Goods">
+        <result property="id" column="id"/>
+        <result property="goodsName" column="goodsName"/>
+        <association property="goodsType" column="tid" javaType="com.example.demo.pojo.GoodsType" select="getAllGoodsType"/>
+    </resultMap>
+    
+    <select id="getAllGoodsType" resultType="com.example.demo.pojo.GoodsType">
+        select * from goodstype where tid=#{tid}
+    </select>
+</mapper>
