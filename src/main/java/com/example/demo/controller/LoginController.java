@@ -29,10 +29,10 @@ public class LoginController {
 
     @GetMapping("/index")
     public String index() {
-        return "view/index";
+        return "index";
     }
 
-    @GetMapping("/toLogin")
+    @GetMapping("/Login")
     public String toLogin() {
         return "login";
     }
@@ -81,7 +81,7 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/toSignIn")
+    @GetMapping("/SignIn")
     public String toSignIn() {
         return "signin";
     }
